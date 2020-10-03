@@ -8,8 +8,8 @@ RUN rpmdb --rebuilddb || true
 RUN cp -r /var/lib/rpmrebuilddb*/* /var/lib/rpm/
 
 RUN dnf update -y
-RUN dnf -y install krb5-devel gcc krb5-libs krb5-workstation
-RUN dnf install python3-pip
+RUN dnf -y install krb5-devel gcc krb5-libs krb5-workstation python3-pip
 COPY requirements.txt .
 RUN python3 -m pip install -r requirements.txt
 RUN ansible-galaxy collection install openstack.cloud
+RUN chmod 0755 /usr/bin/launch_awx*.sh && /var/lib/awx/venv/awx/bin/pip3 install python-memcached
